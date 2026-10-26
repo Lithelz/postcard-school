@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Postcard Post Office</title>
+<meta name="description" content="Learn how to address and stamp a postcard correctly — domestic and international.">
+<!--
+  Fonts: loaded from Google Fonts (free, no API key). If you're offline, the page
+  falls back to your system's handwriting/rounded fonts automatically.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@500;600&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================================
+   THEME — change colors here
+   =========================================================== */
+:root{
+  --bg:#fef6e8;
+  --paper:#fffdf7;
+  --ink:#2b2d42;
+  --muted:#5f6378;
+  --line:#e8dcc4;
+  --coral:#ff6b6b;
+  --coral-dk:#d94848;
+  --teal:#1fa99b;
+  --teal-lt:#d6f5f1;
+  --sky:#3d8fd6;
+  --sky-lt:#e2f0fc;
+  --sun:#ffbe0b;
+  --sun-lt:#fff3cc;
+  --grape:#7b68b5;
+  --grape-lt:#ece8f8;
+  --good:#1f9d55;
+  --warn:#c77800;
+  --bad:#d43d3d;
+  --radius:18px;
+  --shadow:0 6px 24px rgba(43,45,66,.10);
+  --hand:'Caveat','Segoe Print','Bradley Hand','Comic Sans MS',cursive;
+  --fun:'Fredoka','Nunito',system-ui,sans-serif;
+  --body:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  line-height:1.5;font-size:16px;
+  background-image:radial-gradient(#f3e5c8 1px,transparent 1px);background-size:22px 22px;
+}
+a{color:var(--sky)}
+h1,h2,h3{font-family:var(--fun);line-height:1.2;margin:0 0 .4em}
+h2{font-size:1.6rem}
+h3{font-size:1.15rem}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* ---------- Header ---------- */
+header.hero{padding:36px 0 18px;text-align:center;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2rem,6vw,3.3rem);margin:0}
+.hero h1 .accent{color:var(--coral)}
+.hero p{max-width:640px;margin:.5em auto 0;color:var(--muted);font-size:1.05rem}
+.plane-fly{position:absolute;top:18px;left:-80px;width:56px;animation:fly 14s linear infinite;opacity:.85}
+@keyframes fly{0%{transform:translateX(0) translateY(0) rotate(4deg)}50%{transform:translateX(60vw) translateY(14px) rotate(-2deg)}100%{transform:translateX(120vw) translateY(0) rotate(4deg)}}
+@media (prefers-reduced-motion:reduce){.plane-fly{animation:none;display:none}}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 6px}
+nav.jump a{background:var(--paper);border:2px solid var(--line);padding:6px 14px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:700;font-size:.92rem}
+nav.jump a:hover{border-color:var(--coral);color:var(--coral-dk)}
+
+section{margin:28px 0}
+.panel{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;border:1px solid var(--line)}
+.kicker{display:inline-flex;align-items:center;gap:6px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;color:var(--coral-dk)}
+
+/* ---------- Mode toggle ---------- */
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:14px}
+.seg{display:inline-flex;background:#f1e7d3;border-radius:999px;padding:4px}
+.seg button{border:0;background:transparent;padding:8px 16px;border-radius:999px;cursor:pointer;font-weight:800;display:flex;align-items:center;gap:6px}
+.seg button[aria-pressed="true"]{background:var(--paper);box-shadow:0 2px 6px rgba(0,0,0,.12);color:var(--coral-dk)}
+select,input[type=number],input[type=text],textarea{
+  border:2px solid var(--line);border-radius:12px;background:#fff;padding:8px 10px;width:100%;
+}
+select:focus,input:focus,textarea:focus{border-color:var(--sky);outline:none}
+label.lbl{display:block;font-weight:800;font-size:.9rem;margin:10px 0 4px}
+.hint{font-size:.82rem;color:var(--muted);margin:2px 0 0}
+.btn{border:0;border-radius:999px;padding:10px 18px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .12s ease, box-shadow .12s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--coral);color:#fff;box-shadow:0 4px 0 var(--coral-dk)}
+.btn-primary:hover{background:#ff5757}
+.btn-ghost{background:#fff;border:2px solid var(--line)}
+.btn-ghost:hover{border-color:var(--sky)}
+.btn-small{padding:6px 12px;font-size:.85rem}
+.check{display:flex;align-items:center;gap:8px;font-weight:700;cursor:pointer;margin-top:10px}
+.check input{width:20px;height:20px;accent-color:var(--coral)}
+
+/* ---------- Workspace ---------- */
+.workspace{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:22px;align-items:start}
+.card-col{position:sticky;top:12px}
+@media (max-width:900px){
+  .workspace{grid-template-columns:1fr}
+  .card-col{position:static}
+}
+
+/* ---------- Ruler ---------- */
+.ruler{position:relative;height:22px;margin:0 0 6px;font-size:10px;color:var(--muted);
+  background:
+    repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px calc(100%/6)),
+    repeating-linear-gradient(90deg,#b9ae97 0 1px,transparent 1px calc(100%/24));
+  background-size:100% 10px,100% 5px;background-repeat:no-repeat;background-position:bottom,bottom;
+  border-bottom:1px solid var(--muted)}
+.ruler span{position:absolute;top:0;transform:translateX(-50%)}
+.scale-note{font-size:.8rem;color:var(--muted);text-align:center;margin-top:8px}
+
+/* ---------- Postcard (to scale: 6in × 4in) ----------
+   All positions are percentages of the card:
+   left/width = inches ÷ 6 × 100,  top/height = inches ÷ 4 × 100
+   Font sizes use cqw (1cqw = 1% of card width) so text scales with the card. */
+.scene{perspective:1600px;container-type:inline-size}
+.card3d{position:relative;width:100%;aspect-ratio:3/2;transition:transform .9s cubic-bezier(.3,.7,.3,1.1);transform-style:preserve-3d}
+.card3d.flipped{transform:rotateY(180deg)}
+@media (prefers-reduced-motion:reduce){.card3d{transition:none}}
+.face{position:absolute;inset:0;border-radius:1.2cqw;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;
+  box-shadow:0 10px 30px rgba(43,45,66,.18),0 2px 4px rgba(43,45,66,.1)}
+.face.back{background:var(--paper);
+  background-image:linear-gradient(135deg,rgba(255,190,11,.05),rgba(61,143,214,.05))}
+.face.front{transform:rotateY(180deg);background:#9ad4f5}
+.face.front svg{width:100%;height:100%;display:block}
+
+.zone{position:absolute;border-radius:.8cqw;cursor:help;transition:background .2s, box-shadow .2s}
+.guides .zone{outline:.25cqw dashed rgba(61,143,214,.45);outline-offset:-.25cqw}
+.zone:hover,.zone.active{background:rgba(61,143,214,.08)}
+.zone.flag{animation:flag 1.2s ease 2;box-shadow:0 0 0 .5cqw var(--coral) inset}
+@keyframes flag{50%{background:rgba(255,107,107,.18)}}
+.ztag{position:absolute;font-family:var(--body);font-weight:800;font-size:1.25cqw;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--sky);background:rgba(255,255,255,.9);padding:.15cqw .7cqw;border-radius:999px;pointer-events:none;white-space:nowrap;
+  top:-.9cqw;left:.8cqw;border:.15cqw solid rgba(61,143,214,.4)}
+.ztag .n{display:inline-block;background:var(--sky);color:#fff;border-radius:50%;width:1.7cqw;height:1.7cqw;line-height:1.7cqw;text-align:center;margin-right:.4cqw}
+.no-guides .ztag{display:none}
+
+.hand{font-family:var(--hand);color:#1d3a8a;white-space:pre-wrap;overflow-wrap:anywhere;overflow:hidden;height:100%;width:100%;margin:0}
+.ph{color:#b9b2a3}
+
+/* zone geometry (inches → %) */
+#z-return {left:4.17%;  top:6.25%;  width:40%;   height:22.5%}   /* x .25 y .25 w 2.4 h .9 */
+#z-message{left:4.17%;  top:31.25%; width:43.33%;height:51.25%}  /* x .25 y 1.25 w 2.6 h 2.05 */
+#z-recip  {left:53.33%; top:37.5%;  width:42.5%; height:45%}     /* x 3.2 y 1.5 w 2.55 h 1.8 */
+#z-stamp  {left:75.83%; top:5%;     width:20%;   height:28.75%}  /* x 4.55 y .2 w 1.2 h 1.15 */
+#z-barcode{left:0;      top:84.375%;width:100%;  height:15.625%;cursor:help;border-radius:0;
+  background:repeating-linear-gradient(-45deg,rgba(255,107,107,.07) 0 1.2cqw,transparent 1.2cqw 2.4cqw)}
+#z-barcode .bc-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1cqw;font-size:1.5cqw;font-weight:800;color:rgba(212,61,61,.6);text-transform:uppercase;letter-spacing:.06em}
+.divider{position:absolute;left:50%;top:10%;height:72%;width:.25cqw;background:#cbbfa7;border-radius:1cqw}
+#z-return .hand{font-size:2.1cqw;line-height:2.9cqw;padding-top:1.1cqw}
+#z-message .hand{font-size:2.6cqw;line-height:3.5cqw;padding-top:1.1cqw}
+#z-recip .hand{font-size:3cqw;line-height:4.15cqw;padding-top:.4cqw;
+  background-image:linear-gradient(transparent calc(4.15cqw - .15cqw),rgba(43,45,66,.12) 0);background-size:100% 4.15cqw;background-position:0 .4cqw}
+.airmail{position:absolute;left:52%;top:7%;width:22%;display:none;align-items:center;justify-content:center;flex-direction:column;
+  border:.3cqw solid #1f55b3;border-radius:.6cqw;padding:.4cqw;font-family:var(--body);font-weight:800;color:#1f55b3;font-size:1.45cqw;line-height:1.3;text-align:center;
+  background:repeating-linear-gradient(-45deg,#d93838 0 .9cqw,#fff 0 1.8cqw,#1f55b3 0 2.7cqw,#fff 0 3.6cqw) border-box;}
+.airmail span{background:#fff;padding:.2cqw .6cqw;border-radius:.3cqw;display:block;width:100%}
+.airmail.show{display:flex}
+
+/* stamps on the card */
+.stamp-box{position:absolute;inset:0;border:.3cqw dashed #c6b996;border-radius:.6cqw;display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:1.35cqw;font-weight:800;color:#a8996f;text-transform:uppercase;line-height:1.2;padding:1cqw}
+.stamp-box.has{border-color:transparent}
+.stamps{position:absolute;inset:0;display:flex;flex-wrap:wrap-reverse;flex-direction:row-reverse;align-content:flex-start;justify-content:flex-start;gap:.5cqw;padding:.4cqw}
+.stamp{background:#fff;border:.55cqw dotted var(--paper);padding:.35cqw;filter:drop-shadow(0 .2cqw .3cqw rgba(0,0,0,.25));transform:rotate(var(--r,0deg))}
+.stamp .inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;color:#fff;font-family:var(--fun);text-align:center;padding:.4cqw .2cqw;line-height:1}
+.stamp .inner b{font-size:var(--fs,2.2cqw)}
+.stamp .inner small{font-size:var(--fss,.95cqw);font-family:var(--body);font-weight:800;letter-spacing:.04em}
+.stamp svg{width:55%;height:auto}
+.postmark{position:absolute;right:1%;top:14%;width:28%;pointer-events:none;opacity:0;transform:scale(1.4) rotate(-12deg);transition:all .4s ease}
+.postmark.show{opacity:.85;transform:scale(1) rotate(-12deg)}
+
+.card-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
+
+/* tooltip */
+#tip{position:fixed;z-index:50;max-width:290px;background:var(--ink);color:#fff;padding:10px 12px;border-radius:12px;font-size:.88rem;line-height:1.4;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s, transform .15s}
+#tip.show{opacity:1;transform:none}
+#tip b{color:var(--sun);display:block;margin-bottom:2px;font-family:var(--fun);font-size:.98rem}
+
+/* results */
+#results{margin-top:16px}
+.res-head{display:flex;align-items:center;gap:10px;font-family:var(--fun);font-size:1.2rem;margin-bottom:8px}
+.res-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.res-list li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;font-size:.93rem}
+.res-list li .ic{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:.85rem}
+.r-bad{background:#fde8e8}.r-bad .ic{background:var(--bad)}
+.r-warn{background:#fff4dc}.r-warn .ic{background:var(--warn)}
+.r-good{background:#e3f6ea}.r-good .ic{background:var(--good)}
+.r-info{background:var(--sky-lt)}.r-info .ic{background:var(--sky)}
+
+/* form side */
+.format-box{background:var(--sky-lt);border-radius:14px;padding:12px 14px;margin-top:14px;font-size:.9rem}
+.format-box pre{font-family:var(--hand);font-size:1.35rem;line-height:1.25;margin:6px 0;white-space:pre-wrap;color:#1d3a8a;background:#fff;border-radius:10px;padding:8px 12px;border:1px solid #cfe3f6}
+.format-box ul{margin:6px 0 0;padding-left:20px}
+.intl-only{display:none}
+.is-intl .intl-only{display:block}
+.is-intl .dom-only{display:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.row2{grid-template-columns:1fr}}
+
+/* ---------- Postage panel ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.grid3,.grid2{grid-template-columns:1fr}}
+.rate{border-radius:16px;padding:16px;position:relative;overflow:hidden}
+.rate .price{font-family:var(--fun);font-size:2.2rem;line-height:1}
+.rate p{margin:.4em 0 0;font-size:.92rem}
+.rate.dom{background:var(--teal-lt)}
+.rate.intl{background:var(--grape-lt)}
+.rate.forever{background:var(--sun-lt)}
+.asof{display:inline-block;background:var(--ink);color:#fff;font-weight:800;font-size:.8rem;padding:4px 12px;border-radius:999px;margin-bottom:12px}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+tr.hl td{background:var(--sun-lt)}
+.combo{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-weight:800;font-size:.82rem;color:#fff}
+.eq{font-weight:900;margin-left:auto;white-space:nowrap}
+.note{font-size:.85rem;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
+/* ---------- Calculator ---------- */
+.stamp-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:12px 0}
+.sp{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.sp .mini{width:44px;height:52px;border-radius:4px;display:grid;place-items:center;color:#fff;font-family:var(--fun);font-size:.85rem;border:3px dotted #fff;outline:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+.sp .nm{font-weight:800;font-size:.85rem;line-height:1.2}
+.sp .val{font-size:.8rem;color:var(--muted)}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:#fff;font-weight:900;cursor:pointer}
+.stepper button:hover{border-color:var(--coral)}
+.stepper output{min-width:24px;text-align:center;font-weight:900}
+.calc-result{border-radius:14px;padding:14px 16px;font-size:1rem;margin-top:8px}
+.meter{height:14px;background:#efe6d3;border-radius:999px;overflow:hidden;margin:10px 0 4px}
+.meter i{display:block;height:100%;background:var(--teal);border-radius:999px;transition:width .3s}
+
+/* size checker */
+.size-in{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:480px){.size-in{grid-template-columns:1fr}}
+
+/* ---------- Quiz ---------- */
+.q{border-top:2px dashed var(--line);padding:16px 0}
+.q:first-of-type{border-top:0}
+.q h3{display:flex;gap:10px}
+.q h3 .qn{flex:none;background:var(--coral);color:#fff;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.95rem}
+.opts{display:grid;gap:8px;margin-top:8px}
+.opts button{text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:700}
+.opts button:hover:not(:disabled){border-color:var(--sky)}
+.opts button.right{background:#e3f6ea;border-color:var(--good)}
+.opts button.wrong{background:#fde8e8;border-color:var(--bad)}
+.opts button:disabled{cursor:default}
+.explain{margin-top:8px;font-size:.92rem;padding:8px 12px;border-radius:10px;background:var(--sky-lt);display:none}
+.explain.show{display:block}
+.score{font-family:var(--fun);font-size:1.3rem;text-align:center;padding:14px;border-radius:14px;background:var(--sun-lt);display:none}
+.score.show{display:block}
+
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 16px 50px}
+
+/* confetti planes */
+.confetti{position:fixed;pointer-events:none;z-index:60;font-size:22px;animation:conf 1.6s ease-out forwards}
+@keyframes conf{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot));opacity:0}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+
+<!-- Little airplane that flies across the header -->
+<header class="hero">
+  <svg class="plane-fly" viewBox="0 0 64 32" aria-hidden="true"><g transform="translate(64 0) scale(-1 1)"><path d="M2 18 L40 14 L52 4 L58 4 L50 15 L62 16 L62 19 L50 20 L58 30 L52 30 L40 21 Z" fill="#ff6b6b"/><path d="M14 17 L8 10 L12 10 L22 16Z" fill="#d94848"/></g></svg>
+  <div class="wrap">
+    <span class="kicker">✉ Postcard School</span>
+    <h1>Address it. Stamp it. <span class="accent">Send it!</span></h1>
+    <p>A hands-on guide to writing a postcard the post office (and its sorting machines) will love — at home in the US or anywhere in the world.</p>
+    <nav class="jump" aria-label="Sections">
+      <a href="#try">✏️ Try it</a>
+      <a href="#postage">💲 Postage &amp; timing</a>
+      <a href="#calc">🧮 Stamp calculator</a>
+      <a href="#size">📏 Size check</a>
+      <a href="#quiz">🎓 Quiz</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- =========================================================
+     INTERACTIVE POSTCARD
+     ========================================================= -->
+<section id="try" class="panel">
+  <span class="kicker">Step 1</span>
+  <h2>Fill out a practice postcard</h2>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Mail type">
+      <button type="button" id="mode-dom" aria-pressed="true">🇺🇸 Domestic</button>
+      <button type="button" id="mode-intl" aria-pressed="false">🌍 International</button>
+    </div>
+    <label class="check" style="margin:0"><input type="checkbox" id="guides" checked> Show zone labels</label>
+  </div>
+
+  <div class="workspace" id="workspace">
+    <!-- Card column -->
+    <div class="card-col">
+      <div class="ruler" aria-hidden="true" id="ruler"></div>
+      <div class="scene">
+        <div class="card3d" id="card">
+          <!-- ADDRESS SIDE (back) -->
+          <div class="face back guides" id="back" aria-label="Postcard address side">
+            <div class="divider" aria-hidden="true"></div>
+
+            <div class="zone" id="z-return" data-zone="return" tabindex="0" aria-label="Return address zone">
+              <span class="ztag"><span class="n">1</span>Return address</span>
+              <p class="hand" id="o-return"></p>
+            </div>
+
+            <div class="zone" id="z-message" data-zone="message" tabindex="0" aria-label="Message zone">
+              <span class="ztag"><span class="n">2</span>Message</span>
+              <p class="hand" id="o-message"></p>
+            </div>
+
+            <div class="airmail" id="airmail" aria-hidden="true"><span>PAR AVION</span><span>BY AIR MAIL</span></div>
+
+            <div class="zone" id="z-stamp" data-zone="stamp" tabindex="0" aria-label="Stamp zone">
+              <div class="stamp-box" id="stampBox">Place<br>stamp<br>here</div>
+              <div class="stamps" id="stamps"></div>
+              <span class="ztag" style="left:auto;right:.6cqw"><span class="n">3</span>Stamp</span>
+            </div>
+
+            <div class="zone" id="z-recip" data-zone="recip" tabindex="0" aria-label="Recipient address zone">
+              <span class="ztag"><span class="n">4</span>Recipient address</span>
+              <p class="hand" id="o-recip"></p>
+            </div>
+
+            <div class="zone" id="z-barcode" data-zone="barcode" tabindex="0" aria-label="Barcode clear zone">
+              <div class="bc-label">⛔ Barcode clear zone — keep blank (bottom ⅝″)</div>
+              <span class="ztag" style="top:-1.1cqw"><span class="n">5</span>Barcode zone</span>
+            </div>
+
+            <!-- postmark appears after a perfect check -->
+            <svg class="postmark" id="postmark" viewBox="0 0 200 110" aria-hidden="true">
+              <circle cx="55" cy="55" r="44" fill="none" stroke="#2b2d42" stroke-width="4"/>
+              <circle cx="55" cy="55" r="34" fill="none" stroke="#2b2d42" stroke-width="2"/>
+              <text x="55" y="50" text-anchor="middle" font-family="Fredoka,sans-serif" font-size="15" fill="#2b2d42">READY</text>
+              <text x="55" y="68" text-anchor="middle" font-family="Fredoka,sans-serif" font-size="15" fill="#2b2d42">TO MAIL</text>
+              <path d="M105 30 q12 -10 24 0 t24 0 t24 0 t24 0 M105 55 q12 -10 24 0 t24 0 t24 0 t24 0 M105 80 q12 -10 24 0 t24 0 t24 0 t24 0" fill="none" stroke="#2b2d42" stroke-width="4"/>
+            </svg>
+          </div>
+
+          <!-- PICTURE SIDE (front) -->
+          <div class="face front" aria-label="Postcard picture side">
+            <svg viewBox="0 0 600 400" role="img" aria-label="Illustration: Greetings from Anywhere">
+              <defs>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc6f2"/><stop offset="1" stop-color="#ffe3b0"/></linearGradient>
+              </defs>
+              <rect width="600" height="400" fill="url(#sky)"/>
+              <circle cx="470" cy="120" r="56" fill="#ffbe0b"/>
+              <circle cx="470" cy="120" r="74" fill="#ffbe0b" opacity=".25"/>
+              <path d="M0 290 Q120 190 240 270 T470 250 T600 260 V400 H0Z" fill="#5bbf8a"/>
+              <path d="M0 330 Q150 270 300 320 T600 300 V400 H0Z" fill="#2e9e6b"/>
+              <path d="M0 365 Q200 335 380 360 T600 350 V400 H0Z" fill="#1f7a52"/>
+              <g fill="#fff" opacity=".9"><ellipse cx="120" cy="80" rx="46" ry="16"/><ellipse cx="150" cy="70" rx="30" ry="16"/><ellipse cx="330" cy="60" rx="36" ry="12"/><ellipse cx="355" cy="52" rx="22" ry="12"/></g>
+              <g transform="translate(260 120) rotate(8) scale(-1 1)">
+                <path d="M0 14 L60 10 L78 -4 L88 -4 L76 12 L96 13 L96 18 L76 19 L88 34 L78 34 L60 20 Z" fill="#ff6b6b"/>
+                <path d="M-6 16 Q-60 6 -110 18" stroke="#fff" stroke-width="3" stroke-dasharray="6 8" fill="none"/>
+              </g>
+              <text x="300" y="215" text-anchor="middle" font-family="Caveat,cursive" font-size="44" fill="#2b2d42">Greetings from</text>
+              <text x="300" y="282" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="600" font-size="78" fill="#ff6b6b" stroke="#fff" stroke-width="5" paint-order="stroke">ANYWHERE!</text>
+              <rect x="10" y="10" width="580" height="380" rx="10" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="2 10" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="scale-note">Drawn to scale: a standard 6″ × 4″ postcard. Tap or hover any zone for tips.</p>
+
+      <div class="card-actions">
+        <button class="btn btn-primary" id="checkBtn" type="button">✅ Check my postcard</button>
+        <button class="btn btn-ghost" id="flipBtn" type="button">🔄 Flip to picture side</button>
+      </div>
+      <div id="results" aria-live="polite"></div>
+    </div>
+
+    <!-- Form column -->
+    <div id="formCol">
+      <div class="intl-only">
+        <label class="lbl" for="country">Sending to…</label>
+        <select id="country"></select>
+      </div>
+
+      <label class="lbl" for="i-recip">④ Recipient address</label>
+      <textarea id="i-recip" rows="5" placeholder="Name&#10;Street address&#10;City, ST ZIP"></textarea>
+      <p class="hint dom-only">One item per line: name, street (with apt #), then City, ST ZIP.</p>
+      <p class="hint intl-only">Last line = country in ENGLISH, ALL CAPS. Nothing below it.</p>
+
+      <label class="lbl" for="i-return">① Your return address <span class="note">(recommended)</span></label>
+      <textarea id="i-return" rows="3" placeholder="Your name&#10;Street&#10;City, ST ZIP"></textarea>
+
+      <label class="lbl" for="i-message">② Message</label>
+      <textarea id="i-message" rows="4" placeholder="Wish you were here!"></textarea>
+
+      <label class="lbl" for="stampSel">③ Stamps on the card</label>
+      <select id="stampSel"></select>
+      <div class="intl-only">
+        <label class="check"><input type="checkbox" id="airmailChk"> Add “PAR AVION / BY AIR MAIL” label (optional)</label>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+        <button type="button" class="btn btn-ghost btn-small" id="sampleBtn">✨ Fill with a sample</button>
+        <button type="button" class="btn btn-ghost btn-small" id="clearBtn">🧽 Clear</button>
+      </div>
+
+      <div class="format-box" id="formatBox"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     POSTAGE & TIMING  (filled in from the RATES / DELIVERY data in the script)
+     ========================================================= -->
+<section id="postage" class="panel">
+  <span class="kicker">Step 2</span>
+  <h2>Postage &amp; delivery times</h2>
+  <span class="asof" id="asof"></span>
+
+  <div class="grid3" id="rateCards"></div>
+
+  <div class="grid2" style="margin-top:20px">
+    <div>
+      <h3>🧩 Stamp combos for an international postcard</h3>
+      <div id="combos"></div>
+      <p class="note">You can mix any US stamps. Forever stamps are always worth the current price, even if you bought them years ago. The post office doesn't give change, so overpaying is fine — underpaying isn't.</p>
+    </div>
+    <div>
+      <h3>⏱️ How long will it take?</h3>
+      <table id="deliveryTable"><thead><tr><th>Where to</th><th>Estimated time</th></tr></thead><tbody></tbody></table>
+      <p class="note">These are <strong>estimates</strong>. USPS does not guarantee delivery times for international mail. Customs and the other country's postal service can add time.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:22px">📐 Postcard size rules</h3>
+  <div id="sizeRules"></div>
+
+  <div class="links">
+    <a class="btn btn-ghost btn-small" href="https://www.usps.com" target="_blank" rel="noopener">🏤 USPS.com</a>
+    <a class="btn btn-ghost btn-small" href="https://postcalc.usps.com" target="_blank" rel="noopener">🧮 USPS Postage Price Calculator</a>
+  </div>
+  <p class="note">Prices change, usually in January and July. Double-check with USPS before you mail.</p>
+</section>
+
+<!-- =========================================================
+     STAMP CALCULATOR
+     ========================================================= -->
+<section id="calc" class="panel">
+  <span class="kicker">Extra</span>
+  <h2>🧮 Do I have enough stamps?</h2>
+  <p>Tap + for each stamp you have. We'll add them up.</p>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Calculator destination">
+      <button type="button" id="calc-dom" aria-pressed="true">🇺🇸 US postcard</button>
+      <button type="button" id="calc-intl" aria-pressed="false">🌍 International postcard</button>
+    </div>
+  </div>
+  <div class="stamp-pick" id="stampPick"></div>
+  <div class="calc-result" id="calcResult" aria-live="polite"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+    <button type="button" class="btn btn-ghost btn-small" id="calcApply">📮 Put these stamps on my practice card</button>
+    <button type="button" class="btn btn-ghost btn-small" id="calcReset">↺ Reset</button>
+  </div>
+</section>
+
+<!-- =========================================================
+     SIZE CHECKER
+     ========================================================= -->
+<section id="size" class="panel">
+  <span class="kicker">Extra</span>
+  <h2>📏 Is my card postcard-sized?</h2>
+  <p>Measure your card (in inches). Thickness: a typical store-bought postcard is about 0.01″ — roughly as thick as a playing card.</p>
+  <div class="size-in">
+    <div><label class="lbl" for="sw">Length (in)</label><input type="number" id="sw" step="0.01" min="0" value="6"></div>
+    <div><label class="lbl" for="sh">Height (in)</label><input type="number" id="sh" step="0.01" min="0" value="4"></div>
+    <div><label class="lbl" for="st">Thickness (in)</label><input type="number" id="st" step="0.001" min="0" value="0.01"></div>
+  </div>
+  <div class="calc-result" id="sizeResult" aria-live="polite"></div>
+</section>
+
+<!-- =========================================================
+     QUIZ
+     ========================================================= -->
+<section id="quiz" class="panel">
+  <span class="kicker">Final step</span>
+  <h2>🎓 Pop quiz: 5 questions</h2>
+  <div id="quizBox"></div>
+  <div class="score" id="score"></div>
+  <div style="text-align:center;margin-top:10px"><button type="button" class="btn btn-ghost btn-small" id="quizReset">↺ Try again</button></div>
+</section>
+
+</main>
+
+<footer>
+  Made for learning. Prices and rules are a snapshot — always confirm at <a href="https://www.usps.com" target="_blank" rel="noopener">USPS.com</a>.<br>
+  All names and addresses on this page are made-up examples.
+</footer>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+/* ==================================================================
+   ✏️  UPDATE PRICES HERE
+   All prices are in CENTS (65 = $0.65). Change a number and every
+   panel, tip, calculator and quiz question on the page updates.
+   ================================================================== */
+const RATES = {
+  asOf:          'July 12, 2026', // shown as "Rates current as of …"
+  postcard:      65,   // Domestic postcard stamp (Postcard Forever)
+  forever:       82,   // First-Class Forever stamp (1-oz domestic letter)
+  intlPostcard:  175,  // International postcard, any country
+  globalForever: 175   // Global Forever stamp (worth the international rate)
+};
+
+/* Postcard size limits (inches) for the postcard price.
+   Source: USPS. Larger cards need letter postage. */
+const SIZE = {
+  minH: 3.5,  minL: 5,
+  maxH: 4.25, maxL: 6,
+  minT: 0.007, maxT: 0.016,
+  // Letter limits (for the "too big for a postcard" message)
+  letterMaxH: 6.125, letterMaxL: 11.5, letterMaxT: 0.25
+};
+
+/* Delivery estimates. USPS does NOT guarantee international times. */
+const DELIVERY = [
+  { id:'dom',    label:'Within the US',                       time:'1–5 business days' },
+  { id:'canmex', label:'Canada & Mexico',                     time:'about 1–2 weeks' },
+  { id:'europe', label:'Europe',                              time:'about 1–3 weeks' },
+  { id:'far',    label:'Asia, Australia/NZ & South America',  time:'about 2–4 weeks' }
+];
+
+/* Stamps you can pick. `value` is in cents.
+   Forever-type stamps pull their value from RATES above. */
+const STAMPS = {
+  global:   { name:'Global Forever',     short:'GLOBAL',  value:RATES.globalForever, color:'#7b68b5' },
+  forever:  { name:'Forever (1st-Class)',short:'FOREVER', value:RATES.forever,       color:'#e0533d' },
+  postcard: { name:'Postcard Forever',   short:'POSTCARD',value:RATES.postcard,      color:'#1fa99b' },
+  c25:      { name:'25¢ stamp', short:'25¢', value:25, color:'#3d8fd6' },
+  c20:      { name:'20¢ stamp', short:'20¢', value:20, color:'#4f9b3a' },
+  c10:      { name:'10¢ stamp', short:'10¢', value:10, color:'#c77800' },
+  c5:       { name:'5¢ stamp',  short:'5¢',  value:5,  color:'#b0487a' },
+  c3:       { name:'3¢ stamp',  short:'3¢',  value:3,  color:'#5b6b8c' },
+  c2:       { name:'2¢ stamp',  short:'2¢',  value:2,  color:'#8a6d3b' },
+  c1:       { name:'1¢ stamp',  short:'1¢',  value:1,  color:'#6c7a89' }
+};
+const EXTRA_DENOMS = ['c25','c20','c10','c5','c3','c2','c1']; // used to suggest top-ups
+
+/* Preset stamp choices for the practice card (each is a list of stamp ids). */
+const PRESETS = [
+  { id:'none',    label:'No stamp yet',                          stamps:[] },
+  { id:'pc',      label:'1 Postcard stamp',                      stamps:['postcard'] },
+  { id:'fe',      label:'1 Forever stamp',                       stamps:['forever'] },
+  { id:'gf',      label:'1 Global Forever stamp',                stamps:['global'] },
+  { id:'2fe',     label:'2 Forever + 10¢ + 1¢',                  stamps:['forever','forever','c10','c1'] },
+  { id:'fepc',    label:'1 Forever + 1 Postcard + 25¢ + 3¢',     stamps:['forever','postcard','c25','c3'] },
+  { id:'2pc',     label:'2 Postcard + 25¢ + 20¢',                stamps:['postcard','postcard','c25','c20'] },
+  { id:'2fe-only',label:'2 Forever stamps only',                 stamps:['forever','forever'] },
+  { id:'custom',  label:'From my stamp calculator',              stamps:[] }
+];
+
+/* ------------------------------------------------------------------
+   COUNTRIES — sample addresses are made up but follow each country's
+   real format. `accepted` = country names (ALL CAPS, English) we accept
+   on the last line. `postal` = regex for that country's postal code.
+   `native` = local-language names people often write by mistake.
+   ------------------------------------------------------------------ */
+const COUNTRIES = {
+  CA:{ name:'Canada', flag:'🇨🇦', region:'canmex', accepted:['CANADA'], native:[],
+       postal:/\b[A-Z]\d[A-Z]\s?\d[A-Z]\d\b/i, postalName:'postal code (A1A 1A1)', postalRequired:true,
+       sample:['Avery Tremblay','123 Maple Street Apt 4','Toronto ON  M5V 2T6','CANADA'],
+       notes:['City, 2-letter province, then postal code — all on one line.','Canada Post likes two spaces between province and postal code.'] },
+  MX:{ name:'Mexico', flag:'🇲🇽', region:'canmex', accepted:['MEXICO'], native:['MÉXICO'],
+       postal:/\b\d{5}\b/, postalName:'5-digit código postal', postalRequired:true,
+       sample:['Sofía Hernández','Av. Juárez 123','Col. Centro','06000 Ciudad de México, CDMX','MEXICO'],
+       notes:['Include the colonia (neighborhood) on its own line.','Postal code comes BEFORE the city.','Write MEXICO without the accent on the country line.'] },
+  GB:{ name:'United Kingdom', flag:'🇬🇧', region:'europe', accepted:['UNITED KINGDOM','GREAT BRITAIN','UK','ENGLAND','SCOTLAND','WALES','NORTHERN IRELAND','GREAT BRITAIN AND NORTHERN IRELAND'], native:[],
+       postal:/\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b/i, postalName:'postcode (e.g. SW1A 1AA)', postalRequired:true,
+       sample:['Oliver Bennett','10 High Street','LONDON','SW1A 1AA','UNITED KINGDOM'],
+       notes:['Post town in CAPITAL letters on its own line.','Postcode gets its own line too.','UNITED KINGDOM is the safest country line.'] },
+  DE:{ name:'Germany', flag:'🇩🇪', region:'europe', accepted:['GERMANY'], native:['DEUTSCHLAND'],
+       postal:/\b\d{5}\b/, postalName:'5-digit Postleitzahl', postalRequired:true,
+       sample:['Lena Fischer','Hauptstraße 5','10115 Berlin','GERMANY'],
+       notes:['House number goes AFTER the street name.','Postal code comes BEFORE the city.','Write GERMANY, not Deutschland.'] },
+  FR:{ name:'France', flag:'🇫🇷', region:'europe', accepted:['FRANCE'], native:[],
+       postal:/\b\d{5}\b/, postalName:'5-digit code postal', postalRequired:true,
+       sample:['Camille Martin','12 rue de la Paix','75002 PARIS','FRANCE'],
+       notes:['Postal code, then the city in CAPITALS.','House number goes before the street name.'] },
+  JP:{ name:'Japan', flag:'🇯🇵', region:'far', accepted:['JAPAN'], native:['NIPPON','NIHON','日本'],
+       postal:/\b\d{3}-?\d{4}\b/, postalName:'postal code (123-4567)', postalRequired:true,
+       sample:['Yuki Tanaka','1-2-3 Ginza','Chuo-ku, Tokyo 104-0061','JAPAN'],
+       notes:['In English, go from smallest to largest: building/block → ward → city.','You may write the address in Japanese — just add JAPAN in English on the last line.'] },
+  AU:{ name:'Australia', flag:'🇦🇺', region:'far', accepted:['AUSTRALIA'], native:[],
+       postal:/\b\d{4}\b/, postalName:'4-digit postcode', postalRequired:true,
+       sample:['Mia Wilson','42 Wallaby Way','SYDNEY NSW 2000','AUSTRALIA'],
+       notes:['Suburb/town, state abbreviation and postcode on one line.','Australia Post prefers that line in CAPITALS.'] },
+  IT:{ name:'Italy', flag:'🇮🇹', region:'europe', accepted:['ITALY'], native:['ITALIA'],
+       postal:/\b\d{5}\b/, postalName:'5-digit CAP', postalRequired:true,
+       sample:['Giulia Rossi','Via Roma 10','00184 ROMA RM','ITALY'],
+       notes:['Postal code (CAP), city, then 2-letter province code.','Write ITALY, not Italia.'] },
+  ES:{ name:'Spain', flag:'🇪🇸', region:'europe', accepted:['SPAIN'], native:['ESPAÑA','ESPANA'],
+       postal:/\b\d{5}\b/, postalName:'5-digit código postal', postalRequired:true,
+       sample:['Lucía García','Calle Mayor 5, 2º','28013 Madrid','SPAIN'],
+       notes:['Floor/door can follow the house number (2º = 2nd floor).','Postal code before the city. Write SPAIN, not España.'] },
+  BR:{ name:'Brazil', flag:'🇧🇷', region:'far', accepted:['BRAZIL'], native:['BRASIL'],
+       postal:/\b\d{5}-?\d{3}\b/, postalName:'CEP (12345-678)', postalRequired:true,
+       sample:['Ana Souza','Rua das Flores, 123','Centro','São Paulo - SP','01001-000','BRAZIL'],
+       notes:['Neighborhood (bairro) on its own line.','City – state, then the CEP.','Write BRAZIL with a Z, not Brasil.'] },
+  IN:{ name:'India', flag:'🇮🇳', region:'far', accepted:['INDIA'], native:['BHARAT'],
+       postal:/\b\d{3}\s?\d{3}\b/, postalName:'6-digit PIN code', postalRequired:true,
+       sample:['Priya Sharma','12 MG Road','Bengaluru 560001','Karnataka','INDIA'],
+       notes:['Always include the 6-digit PIN code.','A nearby landmark line is common and helps delivery.'] },
+  CN:{ name:'China', flag:'🇨🇳', region:'far', accepted:['CHINA',"PEOPLE'S REPUBLIC OF CHINA",'PRC'], native:['ZHONGGUO','中国','中國'],
+       postal:/\b\d{6}\b/, postalName:'6-digit postal code', postalRequired:true,
+       sample:['Li Wei','100 Nanjing Road','Huangpu District','Shanghai 200001','CHINA'],
+       notes:['You can write the address in Chinese characters — add CHINA in English on the last line.','Include the district.'] },
+  KR:{ name:'South Korea', flag:'🇰🇷', region:'far', accepted:['REPUBLIC OF KOREA','SOUTH KOREA','KOREA'], native:['대한민국','한국','HANGUK'],
+       postal:/\b\d{5}\b/, postalName:'5-digit postal code', postalRequired:true,
+       sample:['Kim Min-jun','123 Sejong-daero','Jongno-gu','Seoul 03172','REPUBLIC OF KOREA'],
+       notes:['Write REPUBLIC OF KOREA (or SOUTH KOREA) — never just “Korea” to be safe.','Korean script is fine if you add the English country line.'] },
+  PH:{ name:'Philippines', flag:'🇵🇭', region:'far', accepted:['PHILIPPINES'], native:['PILIPINAS'],
+       postal:/\b\d{4}\b/, postalName:'4-digit ZIP code', postalRequired:true,
+       sample:['Maria Santos','123 Rizal Street','Barangay San Antonio','1605 Pasig City','Metro Manila','PHILIPPINES'],
+       notes:['Include the barangay.','ZIP code before the city, then the province/region.'] },
+  IE:{ name:'Ireland', flag:'🇮🇪', region:'europe', accepted:['IRELAND','REPUBLIC OF IRELAND'], native:['ÉIRE','EIRE'],
+       postal:/\b[A-Z]\d[\dW]\s?[A-Z\d]{4}\b/i, postalName:'Eircode (e.g. D04 X1Y2)', postalRequired:false,
+       sample:['Aoife Murphy','5 Main Street','Ballsbridge','Dublin 4','D04 X1Y2','IRELAND'],
+       notes:['The Eircode goes on its own line, just above the country.','Eircodes are strongly recommended (not strictly required).'] },
+  NL:{ name:'Netherlands', flag:'🇳🇱', region:'europe', accepted:['NETHERLANDS','THE NETHERLANDS'], native:['NEDERLAND','HOLLAND'],
+       postal:/\b\d{4}\s?[A-Z]{2}\b/i, postalName:'postcode (1234 AB)', postalRequired:true,
+       sample:['Daan de Vries','Prinsengracht 263','1016 GV Amsterdam','NETHERLANDS'],
+       notes:['Postcode = 4 digits + 2 letters, then the city.','Write NETHERLANDS, not Nederland.'] },
+  NZ:{ name:'New Zealand', flag:'🇳🇿', region:'far', accepted:['NEW ZEALAND'], native:['AOTEAROA'],
+       postal:/\b\d{4}\b/, postalName:'4-digit postcode', postalRequired:true,
+       sample:['Ruby Thompson','15 Queen Street','Auckland Central','Auckland 1010','NEW ZEALAND'],
+       notes:['Suburb on its own line, then city + postcode.'] }
+};
+
+/* Domestic samples (made-up people). */
+const DOM_SAMPLE = {
+  recip:['Jordan Rivera','123 Main St Apt 4B','Springfield, IL 62704'],
+  ret:['Sam Lee','456 Oak Ave','Portland, OR 97201'],
+  msg:'Hi Jordan! Wish you were here — the mountains are amazing and I ate way too many pancakes. See you soon! ☀'
+};
+const US_STATES = 'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC AS GU MP PR VI AA AE AP FM MH PW'.split(' ');
+
+/* ================================================================== */
+/*                       (no edits needed below)                      */
+/* ================================================================== */
+const $ = s => document.querySelector(s);
+const money = c => '$' + (c/100).toFixed(2);
+const cents = c => c < 100 ? c + '¢' : money(c);
+const esc = s => s.replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+const regionOf = id => DELIVERY.find(d => d.id === id);
+
+const state = { intl:false, country:'CA', stamps:[], preset:'none', calcIntl:false, calc:{} };
+
+/* ---------- Ruler ---------- */
+(function(){
+  const r = $('#ruler');
+  for(let i=0;i<=6;i++){ const s=document.createElement('span'); s.style.left=(i/6*100)+'%'; s.textContent=i===6?'6 in':i; r.appendChild(s); }
+})();
+
+/* ---------- Tooltips for zones ---------- */
+const TIPS = () => ({
+  return:{t:'① Return address — top-left', d:'Small and neat. Your name and address, so the card can come back if it can’t be delivered. Optional but smart.'},
+  message:{t:'② Message — left half', d:'Write your note here. Stay left of the center line so it doesn’t crowd the address. Don’t write below the bottom ⅝″.'},
+  stamp:{t:'③ Stamp — top-right corner', d: state.intl
+      ? `International: ${money(RATES.intlPostcard)} in postage — easiest is 1 Global Forever stamp. Stamps go in the top-right corner, upright.`
+      : `Domestic: 1 postcard stamp (${money(RATES.postcard)}). A Forever stamp (${money(RATES.forever)}) also works but overpays. Top-right corner, upright.`},
+  recip:{t:'④ Recipient address — right half', d: state.intl
+      ? 'Below the stamp, right of the line. Country name goes on the LAST line, in ALL CAPS, in English.'
+      : 'Below the stamp, right of the line. Name / street / City, ST ZIP. Print clearly in dark ink.'},
+  barcode:{t:'⑤ Barcode clear zone — keep blank', d:'The bottom ⅝″ is where USPS machines print a sorting barcode. Officially it’s the bottom-right 4½″, but keeping the whole strip blank is safest.'}
+});
+const tip = $('#tip');
+let tipZone = null, tipShownAt = 0;
+function showTip(el){
+  const k = el.dataset.zone, info = TIPS()[k]; if(!info) return;
+  tip.innerHTML = `<b>${info.t}</b>${info.d}`;
+  document.querySelectorAll('.zone.active').forEach(z=>z.classList.remove('active'));
+  if(tipZone !== el) tipShownAt = Date.now();
+  el.classList.add('active'); tipZone = el;
+  tip.classList.add('show');
+  const r = el.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+  let x = r.left + r.width/2 - tw/2; x = Math.max(8, Math.min(x, innerWidth - tw - 8));
+  let y = r.bottom + 8; if(y + th > innerHeight - 8) y = Math.max(8, r.top - th - 8);
+  tip.style.left = x+'px'; tip.style.top = y+'px';
+}
+function hideTip(){ tip.classList.remove('show'); if(tipZone) tipZone.classList.remove('active'); tipZone=null; }
+document.querySelectorAll('.zone').forEach(z=>{
+  z.addEventListener('pointerenter', e=>{ if(e.pointerType==='mouse') showTip(z); });
+  z.addEventListener('pointerleave', e=>{ if(e.pointerType==='mouse') hideTip(); });
+  // tap again to close (ignore the focus that fires right before a tap)
+  z.addEventListener('click', e=>{ e.stopPropagation(); (tipZone===z && e.pointerType!=='mouse' && Date.now()-tipShownAt>400) ? hideTip() : showTip(z); });
+  z.addEventListener('focus', ()=>showTip(z));
+  z.addEventListener('blur', hideTip);
+});
+document.addEventListener('click', hideTip);
+addEventListener('scroll', hideTip, {passive:true});
+
+/* ---------- Stamp art ---------- */
+const PLANE_SVG = '<svg viewBox="0 0 64 32" aria-hidden="true"><path d="M2 18 L40 14 L52 4 L58 4 L50 15 L62 16 L62 19 L50 20 L58 30 L52 30 L40 21 Z" fill="#fff"/></svg>';
+const FLAG_SVG  = '<svg viewBox="0 0 40 26" aria-hidden="true"><rect width="40" height="26" rx="2" fill="#fff"/><g fill="currentColor" opacity=".55"><rect y="4" width="40" height="3"/><rect y="11" width="40" height="3"/><rect y="18" width="40" height="3"/></g><rect width="16" height="13" fill="currentColor"/></svg>';
+const STAR_SVG  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z" fill="#fff"/></svg>';
+function stampHTML(id, size){
+  const s = STAMPS[id];
+  const art = id==='global' ? PLANE_SVG : id==='forever' ? FLAG_SVG : id==='postcard' ? STAR_SVG : '';
+  const big = id==='global' ? 'GLOBAL' : id==='forever' ? 'USA' : id==='postcard' ? 'USA' : s.short;
+  const sub = id==='global' ? 'FOREVER' : id==='forever' ? 'FOREVER' : id==='postcard' ? 'POSTCARD' : 'USA';
+  const r = ((id.charCodeAt(0)*7 + size*13) % 7) - 3;
+  return `<div class="stamp" style="width:${size}cqw;height:${size*1.15}cqw;--r:${r}deg;--fs:${size/4.6}cqw;--fss:${size/8.5}cqw">
+    <div class="inner" style="background:${s.color};color:${s.color}">${art || `<b style="color:#fff">${big}</b>`}${art?`<b style="color:#fff">${big}</b>`:''}<small style="color:#fff">${sub}</small></div></div>`;
+}
+function renderStamps(){
+  const n = state.stamps.length, box = $('#stamps');
+  const size = n<=1 ? 9.2 : n<=4 ? 6.3 : 4.6;
+  box.innerHTML = state.stamps.slice(0,9).map(id=>stampHTML(id,size)).join('');
+  if(n>9) box.innerHTML += `<div style="font-size:1.4cqw;font-weight:800">+${n-9}</div>`;
+  $('#stampBox').classList.toggle('has', n>0);
+  $('#stampBox').textContent = n ? '' : '';
+  if(!n) $('#stampBox').innerHTML = 'Place<br>stamp<br>here';
+}
+const stampTotal = arr => arr.reduce((a,id)=>a+STAMPS[id].value,0);
+
+/* ---------- Fill selects ---------- */
+$('#stampSel').innerHTML = PRESETS.map(p=>{
+  const v = p.id==='custom' ? '' : ` (${money(stampTotal(p.stamps))})`;
+  return `<option value="${p.id}">${p.label}${p.stamps.length?v:''}</option>`;
+}).join('');
+$('#country').innerHTML = Object.entries(COUNTRIES).map(([k,c])=>`<option value="${k}">${c.flag} ${c.name}</option>`).join('');
+
+/* ---------- Live preview ---------- */
+function preview(){
+  const map = [['i-return','o-return','Your return address'],['i-message','o-message','Your message…'],['i-recip','o-recip','Recipient’s address']];
+  map.forEach(([i,o,ph])=>{
+    const v = $('#'+i).value, out = $('#'+o);
+    if(v.trim()){ out.textContent = v; out.classList.remove('ph'); }
+    else { out.textContent = ph; out.classList.add('ph'); }
+  });
+  $('#postmark').classList.remove('show');
+}
+['i-return','i-message','i-recip'].forEach(id=>$('#'+id).addEventListener('input', preview));
+
+/* ---------- Format guide ---------- */
+function renderFormat(){
+  const box = $('#formatBox');
+  if(!state.intl){
+    box.innerHTML = `<strong>🇺🇸 US address format</strong>
+      <pre>${esc(DOM_SAMPLE.recip.join('\n'))}</pre>
+      <ul><li>Line 1: recipient’s name</li><li>Line 2: street number, street, apt/unit</li>
+      <li>Last line: City, 2-letter STATE, ZIP (ZIP+4 is a bonus)</li><li>Use dark ink and print clearly.</li></ul>`;
+  } else {
+    const c = COUNTRIES[state.country], reg = regionOf(c.region);
+    box.innerHTML = `<strong>${c.flag} ${c.name} address format</strong>
+      <pre>${esc(c.sample.join('\n'))}</pre>
+      <ul>${c.notes.map(n=>`<li>${n}</li>`).join('')}
+      <li>Postal code: ${c.postalName}</li>
+      <li>Country on the <b>last line</b>, ALL CAPS, in English.</li></ul>
+      <p class="hint">✈ Postage: ${money(RATES.intlPostcard)} · Est. delivery: ${reg.time}</p>`;
+  }
+}
+
+/* ---------- Mode toggle ---------- */
+function setMode(intl){
+  state.intl = intl;
+  $('#mode-dom').setAttribute('aria-pressed', !intl);
+  $('#mode-intl').setAttribute('aria-pressed', intl);
+  $('#workspace').classList.toggle('is-intl', intl);
+  $('#i-recip').placeholder = intl ? 'Name\nStreet address\nPostal code + City\nCOUNTRY' : 'Name\nStreet address\nCity, ST ZIP';
+  if(!intl){ $('#airmailChk').checked=false; $('#airmail').classList.remove('show'); }
+  renderFormat(); renderDeliveryTable(); $('#results').innerHTML=''; $('#postmark').classList.remove('show');
+  setCalcMode(intl);
+}
+$('#mode-dom').onclick = ()=>setMode(false);
+$('#mode-intl').onclick = ()=>setMode(true);
+$('#country').onchange = e=>{ state.country = e.target.value; renderFormat(); renderDeliveryTable(); fillSample(); };
+$('#airmailChk').onchange = e=>$('#airmail').classList.toggle('show', e.target.checked);
+$('#guides').onchange = e=>{ $('#back').classList.toggle('guides', e.target.checked); $('#back').classList.toggle('no-guides', !e.target.checked); };
+$('#stampSel').onchange = e=>{
+  const p = PRESETS.find(x=>x.id===e.target.value);
+  state.preset = p.id;
+  state.stamps = p.id==='custom' ? calcList() : [...p.stamps];
+  renderStamps(); $('#postmark').classList.remove('show');
+};
+
+function fillSample(){
+  if(state.intl){
+    const c = COUNTRIES[state.country];
+    $('#i-recip').value = c.sample.join('\n');
+    $('#i-message').value = `Hello from the USA! Sending you this card all the way to ${c.name}. Miss you! ✈`;
+  } else {
+    $('#i-recip').value = DOM_SAMPLE.recip.join('\n');
+    $('#i-message').value = DOM_SAMPLE.msg;
+  }
+  $('#i-return').value = DOM_SAMPLE.ret.join('\n');
+  preview();
+}
+$('#sampleBtn').onclick = fillSample;
+$('#clearBtn').onclick = ()=>{ ['i-return','i-message','i-recip'].forEach(id=>$('#'+id).value=''); state.stamps=[]; $('#stampSel').value='none'; renderStamps(); preview(); $('#results').innerHTML=''; };
+
+/* ---------- Flip ---------- */
+$('#flipBtn').onclick = ()=>{
+  const f = $('#card').classList.toggle('flipped');
+  $('#flipBtn').textContent = f ? '🔄 Flip to address side' : '🔄 Flip to picture side';
+  hideTip();
+};
+
+/* ==================================================================
+   CHECK MY POSTCARD — rules
+   Each check pushes {level:'bad'|'warn'|'good'|'info', msg, zone}
+   ================================================================== */
+const ZIP_LINE = /\b[A-Za-z]{2}\.?\s+\d{5}(-\d{4})?\s*$/;
+const ADDRESSY = /(\b[A-Z]{2}\s+\d{5}(-\d{4})?\b)|(\b\d{5}(-\d{4})?\b)|(\b\d+\s+\w+\s+(st|street|ave|avenue|rd|road|blvd|ln|lane|dr|drive|way|ct)\b)/i;
+const ALL_COUNTRY_NAMES = Object.values(COUNTRIES).flatMap(c=>c.accepted.filter(n=>n.length>3)).concat(['USA','UNITED STATES']);
+const NON_LATIN = /[぀-ヿ㐀-鿿가-힯Ѐ-ӿ؀-ۿऀ-ॿ]/;
+
+function overflowing(el){ return el.scrollHeight > el.clientHeight + 2; }
+
+function runChecks(){
+  const out = [];
+  const add = (level,msg,zone)=>out.push({level,msg,zone});
+  const recip = $('#i-recip').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  const ret   = $('#i-return').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  const msg   = $('#i-message').value.trim();
+  const need  = state.intl ? RATES.intlPostcard : RATES.postcard;
+  const have  = stampTotal(state.stamps);
+
+  /* --- Recipient address --- */
+  if(!recip.length){
+    add('bad','No recipient address yet. It goes on the right half, below the stamp.','recip');
+  } else {
+    if(recip.length < 3) add('bad',`Only ${recip.length} line${recip.length>1?'s':''} in the address. You need at least: name, street, and city/postal line${state.intl?', plus the country':''}.`,'recip');
+    if(/^\d/.test(recip[0])) add('warn','The first line starts with a number. Put the recipient’s name on line 1, street on line 2.','recip');
+
+    if(!state.intl){
+      let lines = [...recip];
+      const lastU = lines[lines.length-1].toUpperCase().replace(/[.\s]/g,'');
+      if(['USA','US','UNITEDSTATES','UNITEDSTATESOFAMERICA'].includes(lastU)){
+        add('info','“USA” isn’t needed on domestic mail (it’s fine if you include it).','recip');
+        lines.pop();
+      }
+      const last = lines[lines.length-1] || '';
+      if(!/\b\d{5}(-\d{4})?\b/.test(last)){
+        if(recip.some(l=>/\b\d{5}(-\d{4})?\b/.test(l))) add('bad','The ZIP code isn’t on the last line. Format the last line as: City, ST ZIP.','recip');
+        else add('bad','Missing ZIP code! Add the 5-digit ZIP at the end of the last line (City, ST ZIP).','recip');
+      } else {
+        if(!ZIP_LINE.test(last)) add('warn','Put the 2-letter state right before the ZIP — like “Springfield, IL 62704”.','recip');
+        else {
+          const st = last.match(/\b([A-Za-z]{2})\.?\s+\d{5}/)[1].toUpperCase();
+          if(!US_STATES.includes(st)) add('warn',`“${st}” isn’t a US state abbreviation. Double-check it (e.g. CA, NY, TX).`,'recip');
+          else if(st !== last.match(/\b([A-Za-z]{2})\.?\s+\d{5}/)[1]) add('info','Tip: write the state abbreviation in capitals (e.g. IL).','recip');
+          else add('good','Last line has City, ST ZIP. 👍','recip');
+        }
+      }
+      // Looks like an international address in domestic mode?
+      const foreign = ALL_COUNTRY_NAMES.find(n=>n!=='USA' && n!=='UNITED STATES' && recip[recip.length-1].toUpperCase()===n);
+      if(foreign) add('bad',`This looks like it’s going to ${foreign}. Switch to International mode — it needs ${money(RATES.intlPostcard)} postage.`,'recip');
+    } else {
+      const c = COUNTRIES[state.country];
+      const last = recip[recip.length-1];
+      const lastU = last.toUpperCase().replace(/\s+/g,' ').trim();
+      const matches = c.accepted.includes(lastU) || c.accepted.includes(lastU.replace(/^THE /,''));
+      const nativeHit = c.native.find(n => recip.some(l=>l.toUpperCase().includes(n.toUpperCase())));
+      const elsewhereIdx = recip.slice(0,-1).findIndex(l => c.accepted.some(n=>n.length>3 && l.toUpperCase().replace(/[^A-Z' ]/g,'').trim()===n));
+
+      if(matches){
+        if(last !== last.toUpperCase()) add('bad',`Write the country in ALL CAPS: “${c.accepted[0]}”.`,'recip');
+        else add('good',`Country “${lastU}” is on the last line, in capitals. 🌍`,'recip');
+        if(lastU==='KOREA') add('warn','Write REPUBLIC OF KOREA (or SOUTH KOREA) so it isn’t confused with North Korea.','recip');
+        if(lastU==='UK') add('info','“UK” works, but UNITED KINGDOM is clearer for US mail sorters.','recip');
+      } else if(elsewhereIdx >= 0){
+        add('bad',`The country name is on line ${elsewhereIdx+1}, not the last line. Move “${c.accepted[0]}” to the very bottom — nothing below it.`,'recip');
+      } else if(nativeHit && lastU.includes(nativeHit.toUpperCase())){
+        add('bad',`“${last}” is the local name. Write the country in English on the last line: “${c.accepted[0]}”.`,'recip');
+      } else {
+        const other = ALL_COUNTRY_NAMES.find(n=>lastU===n);
+        if(other) add('bad',`The last line says “${other}”, but you picked ${c.name}. Make sure they match.`,'recip');
+        else add('bad',`The last line should be the country: “${c.accepted[0]}” (English, ALL CAPS).`,'recip');
+      }
+      if(nativeHit && matches) add('info',`Local spelling (“${nativeHit}”) is fine in the address as long as ${c.accepted[0]} is on the last line in English.`,'recip');
+
+      const body = recip.join(' ');
+      if(!c.postal.test(body)){
+        add(c.postalRequired?'bad':'warn', `No ${c.postalName} found. ${c.postalRequired?'Add it — it’s needed for delivery.':'It’s recommended for faster delivery.'}`,'recip');
+      } else add('good',`${c.name} ${c.postalName.split(' (')[0]} found.`,'recip');
+
+      if(NON_LATIN.test(body) && !matches) add('bad','Address is in a non-Latin script. That’s OK, but you must add the country name in English on the last line.','recip');
+      if(/\b[A-Z]{2}\s+\d{5}(-\d{4})?\s*$/.test(recip[recip.length-2]||'') && ['US'].length && !c.postal.test(recip[recip.length-2])) add('warn','The city line looks like a US-style address. Check the format guide for this country.','recip');
+    }
+    if(overflowing($('#o-recip'))) add('bad','The address is too long and spills into the barcode zone. Use fewer lines or write smaller.','barcode');
+  }
+
+  /* --- Return address --- */
+  if(!ret.length) add('warn','No return address. It’s optional, but without one an undeliverable card can’t come back to you.','return');
+  else {
+    if(recip.length && ret.join('|').toLowerCase() === recip.join('|').toLowerCase()) add('bad','Your return address is the same as the recipient address — did you copy it into the wrong spot?','return');
+    else add('good','Return address is in the top-left corner.','return');
+    if(overflowing($('#o-return'))) add('warn','The return address is long — keep it small (3–4 lines) so it stays in the corner.','return');
+  }
+
+  /* --- Message --- */
+  if(!msg) add('info','No message yet — say hi! (A postcard can be blank, but where’s the fun in that?)','message');
+  else {
+    const msgLines = msg.split('\n').map(s=>s.trim()).filter(Boolean);
+    const lastMsg = msgLines[msgLines.length-1] || '';
+    const looksAddr = msgLines.length>=2 && (ZIP_LINE.test(lastMsg) || ALL_COUNTRY_NAMES.includes(lastMsg.toUpperCase()) || (ADDRESSY.test(msg) && !recip.length));
+    if(looksAddr) add('bad','Your message area looks like it contains an address. Addresses go on the RIGHT half — machines only read that side.','message');
+    if(overflowing($('#o-message'))) add('warn','The message is longer than the space. Keep it on the left half and above the bottom ⅝″ — trim it or write smaller.','message');
+    else if(!looksAddr) add('good','Message stays on the left half.','message');
+  }
+
+  /* --- Postage --- */
+  if(!state.stamps.length) add('bad',`No stamp! You need ${money(need)} in the top-right corner.`,'stamp');
+  else if(have < need) add('bad',`Not enough postage: ${money(have)} on the card, ${money(need)} needed. Add ${cents(need-have)} more.`,'stamp');
+  else if(have > need) add('good',`Postage OK: ${money(have)} covers the ${money(need)} rate (overpays ${cents(have-need)}).`,'stamp');
+  else add('good',`Perfect postage: exactly ${money(need)}.`,'stamp');
+  if(!state.intl && state.stamps.includes('global')) add('info','A Global Forever stamp works in the US, but it overpays a lot. Save it for international mail!','stamp');
+
+  /* --- Extras --- */
+  if(state.intl && !$('#airmailChk').checked) add('info','Optional: add a “PAR AVION / BY AIR MAIL” label. Not required — all US international postcards fly anyway.','stamp');
+  add('info','Keep the bottom ⅝″ blank — that’s where USPS prints its barcode. (Your practice card keeps it clear.)','barcode');
+  return out;
+}
+
+$('#checkBtn').onclick = ()=>{
+  if($('#card').classList.contains('flipped')) $('#flipBtn').click();
+  const res = runChecks();
+  const bad = res.filter(r=>r.level==='bad').length, warn = res.filter(r=>r.level==='warn').length;
+  const order = {bad:0,warn:1,good:2,info:3};
+  res.sort((a,b)=>order[a.level]-order[b.level]);
+  const icon = {bad:'✕',warn:'!',good:'✓',info:'i'};
+  const head = bad ? `🛑 ${bad} thing${bad>1?'s':''} to fix` : warn ? `👍 Almost there — ${warn} suggestion${warn>1?'s':''}` : '🎉 Ready to mail!';
+  $('#results').innerHTML = `<div class="res-head">${head}</div><ul class="res-list">${
+    res.map(r=>`<li class="r-${r.level}"><span class="ic">${icon[r.level]}</span><span>${r.msg}</span></li>`).join('')}</ul>`;
+  document.querySelectorAll('.zone.flag').forEach(z=>z.classList.remove('flag'));
+  void document.body.offsetWidth;
+  const zid = {recip:'z-recip',return:'z-return',message:'z-message',stamp:'z-stamp',barcode:'z-barcode'};
+  new Set(res.filter(r=>r.level==='bad').map(r=>r.zone)).forEach(z=>$('#'+zid[z]).classList.add('flag'));
+  $('#postmark').classList.toggle('show', !bad);
+  if(!bad) celebrate($('#checkBtn'));
+};
+
+function celebrate(el){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const r = el.getBoundingClientRect();
+  const icons = ['✈️','✉️','📮','⭐','💌'];
+  for(let i=0;i<14;i++){
+    const s = document.createElement('span'); s.className='confetti'; s.textContent = icons[i%icons.length];
+    s.style.left = (r.left + r.width/2)+'px'; s.style.top = r.top+'px';
+    s.style.setProperty('--dx', (Math.random()*300-150)+'px');
+    s.style.setProperty('--dy', (-Math.random()*220-60)+'px');
+    s.style.setProperty('--rot', (Math.random()*360-180)+'deg');
+    document.body.appendChild(s); setTimeout(()=>s.remove(),1700);
+  }
+}
+
+/* ==================================================================
+   POSTAGE PANEL (built from RATES / DELIVERY / SIZE)
+   ================================================================== */
+function renderPostage(){
+  $('#asof').textContent = `Rates current as of ${RATES.asOf}`;
+  $('#rateCards').innerHTML = `
+    <div class="rate dom"><span class="kicker" style="color:var(--teal)">🇺🇸 Domestic postcard</span>
+      <div class="price">${money(RATES.postcard)}</div><p>One Postcard Forever stamp. Anywhere in the US, including territories and military (APO/FPO) addresses.</p></div>
+    <div class="rate intl"><span class="kicker" style="color:var(--grape)">🌍 International postcard</span>
+      <div class="price">${money(RATES.intlPostcard)}</div><p>Same price to <b>any country</b>. One Global Forever stamp covers it exactly.</p></div>
+    <div class="rate forever"><span class="kicker" style="color:var(--warn)">⭐ First-Class Forever</span>
+      <div class="price">${money(RATES.forever)}</div><p>The everyday “letter” stamp. <b>1 Forever stamp works on a domestic postcard</b> — it just overpays by ${cents(RATES.forever-RATES.postcard)}.</p></div>`;
+
+  const combos = [
+    ['global'], ['forever','forever','c10','c1'], ['forever','postcard','c25','c3'],
+    ['postcard','postcard','c25','c20'], ['forever','forever','forever']
+  ];
+  $('#combos').innerHTML = combos.map(list=>{
+    const tot = stampTotal(list), counts = {};
+    list.forEach(id=>counts[id]=(counts[id]||0)+1);
+    const chips = Object.entries(counts).map(([id,n])=>`<span class="chip" style="background:${STAMPS[id].color}">${n>1?n+'× ':''}${STAMPS[id].name}</span>`).join('<span>+</span>');
+    const tag = tot===RATES.intlPostcard ? '✔ exact' : tot>RATES.intlPostcard ? `overpays ${cents(tot-RATES.intlPostcard)}` : 'not enough';
+    return `<div class="combo">${chips}<span class="eq">= ${money(tot)} <span class="note">(${tag})</span></span></div>`;
+  }).join('');
+
+  $('#sizeRules').innerHTML = `<table>
+    <thead><tr><th></th><th>Minimum</th><th>Maximum</th></tr></thead>
+    <tbody>
+    <tr><td><b>Size</b></td><td>${SIZE.minH}″ × ${SIZE.minL}″</td><td>${SIZE.maxH}″ × ${SIZE.maxL}″</td></tr>
+    <tr><td><b>Thickness</b></td><td>${SIZE.minT}″</td><td>${SIZE.maxT}″</td></tr>
+    </tbody></table>
+    <p class="note">Must be rectangular. A card <b>bigger</b> than ${SIZE.maxH}″ × ${SIZE.maxL}″ or thicker than ${SIZE.maxT}″ needs <b>letter postage</b> (a Forever stamp, ${money(RATES.forever)}, in the US). Smaller than ${SIZE.minH}″ × ${SIZE.minL}″ can’t be mailed at all. Square or odd-shaped cards may cost extra (non-machinable surcharge). A standard 4″ × 6″ card fits perfectly.</p>`;
+}
+function renderDeliveryTable(){
+  const active = state.intl ? COUNTRIES[state.country].region : 'dom';
+  $('#deliveryTable tbody').innerHTML = DELIVERY.map(d=>`<tr class="${d.id===active?'hl':''}"><td>${d.id===active?'👉 ':''}${d.label}${d.id===active&&state.intl?` <span class="note">(${COUNTRIES[state.country].name})</span>`:''}</td><td><b>${d.time}</b>${d.id==='dom'?'':' <span class="note">(estimate)</span>'}</td></tr>`).join('');
+}
+
+/* ==================================================================
+   STAMP CALCULATOR
+   ================================================================== */
+const CALC_ORDER = ['forever','postcard','global', ...EXTRA_DENOMS];
+function renderCalcPick(){
+  $('#stampPick').innerHTML = CALC_ORDER.map(id=>{
+    const s = STAMPS[id];
+    return `<div class="sp"><div class="mini" style="background:${s.color}">${id==='forever'?'⭐':id==='postcard'?'★':id==='global'?'✈':s.short}</div>
+      <div class="nm">${s.name}</div><div class="val">worth ${money(s.value)}</div>
+      <div class="stepper"><button type="button" aria-label="Remove one ${s.name}" data-id="${id}" data-d="-1">−</button>
+      <output id="cnt-${id}">0</output>
+      <button type="button" aria-label="Add one ${s.name}" data-id="${id}" data-d="1">+</button></div></div>`;
+  }).join('');
+  $('#stampPick').addEventListener('click', e=>{
+    const b = e.target.closest('button[data-id]'); if(!b) return;
+    const id = b.dataset.id; state.calc[id] = Math.max(0, Math.min(20, (state.calc[id]||0) + +b.dataset.d));
+    $('#cnt-'+id).textContent = state.calc[id]; calcUpdate();
+  });
+}
+function calcList(){ return CALC_ORDER.flatMap(id=>Array(state.calc[id]||0).fill(id)); }
+function topUp(short){ // greedy works for these denominations
+  const out=[]; for(const id of EXTRA_DENOMS){ while(short >= STAMPS[id].value){ out.push(id); short -= STAMPS[id].value; } } return out;
+}
+function setCalcMode(intl){
+  state.calcIntl = intl;
+  $('#calc-dom').setAttribute('aria-pressed', !intl); $('#calc-intl').setAttribute('aria-pressed', intl);
+  calcUpdate();
+}
+$('#calc-dom').onclick = ()=>setCalcMode(false);
+$('#calc-intl').onclick = ()=>setCalcMode(true);
+function calcUpdate(){
+  const need = state.calcIntl ? RATES.intlPostcard : RATES.postcard;
+  const list = calcList(), have = stampTotal(list), pct = Math.min(100, have/need*100);
+  const box = $('#calcResult');
+  let html = `<div><b>You have ${money(have)}</b> · ${state.calcIntl?'International':'US'} postcard needs <b>${money(need)}</b></div>
+    <div class="meter"><i style="width:${pct}%;background:${have>=need?'var(--good)':'var(--coral)'}"></i></div>`;
+  if(!list.length){ html += `<div>Add the stamps you own to see if they’re enough.</div>`; box.style.background='#f6efe0'; }
+  else if(have >= need){
+    html += `<div style="font-size:1.1rem">🎉 <b>Yes! That’s enough postage.</b> ${have>need?`(You’d overpay ${cents(have-need)} — that’s OK.)`:'Exact amount!'}</div>`;
+    if(list.length>4) html += `<div class="note">That’s ${list.length} stamps — make sure they all fit in the top-right area without covering the address.</div>`;
+    box.style.background='#e3f6ea';
+  } else {
+    const short = need-have, add = topUp(short), counts={};
+    add.forEach(id=>counts[id]=(counts[id]||0)+1);
+    const sugg = Object.entries(counts).map(([id,n])=>`${n}× ${STAMPS[id].short}`).join(' + ');
+    html += `<div style="font-size:1.1rem">✋ <b>Not quite — you’re ${cents(short)} short.</b></div>
+      <div>Add: ${sugg}${state.calcIntl?` — or just use one Global Forever stamp (${money(RATES.globalForever)}).`:` — or one Postcard stamp (${money(RATES.postcard)}).`}</div>`;
+    box.style.background='#fde8e8';
+  }
+  box.innerHTML = html;
+}
+$('#calcApply').onclick = ()=>{
+  state.stamps = calcList(); $('#stampSel').value='custom'; state.preset='custom';
+  if(state.calcIntl !== state.intl) setMode(state.calcIntl);
+  renderStamps(); $('#try').scrollIntoView({behavior:'smooth'});
+};
+$('#calcReset').onclick = ()=>{ state.calc={}; CALC_ORDER.forEach(id=>$('#cnt-'+id).textContent=0); calcUpdate(); };
+
+/* ==================================================================
+   SIZE CHECKER
+   ================================================================== */
+function sizeCheck(){
+  const a = +$('#sw').value, b = +$('#sh').value, t = +$('#st').value, box = $('#sizeResult');
+  if(!(a>0 && b>0 && t>0)){ box.innerHTML='Enter all three measurements.'; box.style.background='#f6efe0'; return; }
+  const L = Math.max(a,b), H = Math.min(a,b);
+  let msg, bg;
+  if(H < SIZE.minH || L < SIZE.minL || t < SIZE.minT){
+    msg = `🚫 <b>Too small or too thin to mail.</b> Cards must be at least ${SIZE.minH}″ × ${SIZE.minL}″ and ${SIZE.minT}″ thick.`; bg='#fde8e8';
+  } else if(H <= SIZE.maxH && L <= SIZE.maxL && t <= SIZE.maxT){
+    msg = `✅ <b>Postcard-sized!</b> Use postcard postage: ${money(RATES.postcard)} in the US, ${money(RATES.intlPostcard)} international.`; bg='#e3f6ea';
+  } else if(H <= SIZE.letterMaxH && L <= SIZE.letterMaxL && t <= SIZE.letterMaxT){
+    const sq = L/H < 1.3 ? ` It’s nearly square, so it may also need a <b>non-machinable surcharge</b>.` : '';
+    msg = `✉️ <b>Too big for postcard rates — mail it as a letter.</b> In the US that’s a Forever stamp (${money(RATES.forever)}). International letters (up to 1 oz) are ${money(RATES.globalForever)} — one Global Forever stamp.${sq} Check the <a href="https://postcalc.usps.com" target="_blank" rel="noopener">USPS calculator</a>.`; bg='#fff4dc';
+  } else {
+    msg = `📦 <b>Bigger than a letter.</b> This is a “large envelope/flat” and costs more. Use the <a href="https://postcalc.usps.com" target="_blank" rel="noopener">USPS calculator</a> to get a price.`; bg='#fff4dc';
+  }
+  box.innerHTML = msg; box.style.background = bg;
+}
+['sw','sh','st'].forEach(id=>$('#'+id).addEventListener('input', sizeCheck));
+
+/* ==================================================================
+   QUIZ — edit questions here. `a` = index of the correct option.
+   ================================================================== */
+const QUIZ = () => [
+  { q:'Where does the country name go on an international postcard?',
+    o:['On the first line, above the name','On the last line, in ALL CAPS, in English','Next to the stamp','Anywhere, as long as it’s there'], a:1,
+    e:'The country goes on the very last line, in capital letters, in English — US sorters read it first to route your card.' },
+  { q:'Where should the stamp go?',
+    o:['Top-left corner','Bottom-right corner','Top-right corner','On the picture side'], a:2,
+    e:'Top-right, on the address side. Machines look there for postage.' },
+  { q:'Which part of the address side must stay blank?',
+    o:['The bottom ⅝ inch','The top inch','The left half','The center line'], a:0,
+    e:'The bottom ⅝″ is the barcode clear zone, where USPS prints a sorting barcode.' },
+  { q:'How much postage do you need to mail a postcard from the US to Japan?',
+    o:[money(RATES.postcard), money(RATES.forever), money(RATES.intlPostcard), 'It depends on the weight'], a:2,
+    e:`International postcards cost ${money(RATES.intlPostcard)} to any country — one Global Forever stamp.` },
+  { q:'Your card is 5″ × 7″. What postage does it need in the US?',
+    o:['A postcard stamp','Letter postage (a Forever stamp)','No stamp — it’s a card','Two postcard stamps'], a:1,
+    e:`Anything bigger than ${SIZE.maxH}″ × ${SIZE.maxL}″ loses postcard rates, so it needs letter postage: a Forever stamp (${money(RATES.forever)}).` }
+];
+let quizAnswered = 0, quizRight = 0;
+function renderQuiz(){
+  quizAnswered = 0; quizRight = 0; $('#score').classList.remove('show');
+  $('#quizBox').innerHTML = QUIZ().map((q,i)=>`<div class="q" data-i="${i}">
+    <h3><span class="qn">${i+1}</span><span>${q.q}</span></h3>
+    <div class="opts">${q.o.map((o,j)=>`<button type="button" data-j="${j}">${o}</button>`).join('')}</div>
+    <div class="explain"></div></div>`).join('');
+}
+$('#quizBox').addEventListener('click', e=>{
+  const b = e.target.closest('.opts button'); if(!b) return;
+  const qd = b.closest('.q'), q = QUIZ()[+qd.dataset.i], j = +b.dataset.j;
+  qd.querySelectorAll('button').forEach((x,k)=>{ x.disabled=true; if(k===q.a) x.classList.add('right'); });
+  if(j!==q.a) b.classList.add('wrong'); else quizRight++;
+  const ex = qd.querySelector('.explain'); ex.innerHTML = (j===q.a?'✅ <b>Correct!</b> ':'❌ <b>Not quite.</b> ') + q.e; ex.classList.add('show');
+  if(++quizAnswered === QUIZ().length){
+    const msg = quizRight===5 ? '🏆 Perfect! You’re a certified Postcard Pro.' : quizRight>=3 ? '📮 Nice work! You’re ready to mail.' : '✏️ Give the postcard tool another spin and try again!';
+    $('#score').innerHTML = `You got ${quizRight} / 5 — ${msg}`; $('#score').classList.add('show');
+    if(quizRight===5) celebrate($('#score'));
+  }
+});
+$('#quizReset').onclick = renderQuiz;
+
+/* ---------- Start ---------- */
+renderPostage(); renderDeliveryTable(); renderFormat(); renderStamps(); preview();
+renderCalcPick(); calcUpdate(); sizeCheck(); renderQuiz();
+</script>
+</body>
+</html>
