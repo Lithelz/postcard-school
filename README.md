@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.png" alt="Postcard School — Address it. Stamp it. Send it! An interactive guide to addressing and stamping postcards." width="100%">
+  <img src="banner.png" alt="Postcard School — Address it. Stamp it. Send it! An interactive guide to addressing and stamping postcards." width="100%">
 </p>
 
 # ✉️ Postcard School
